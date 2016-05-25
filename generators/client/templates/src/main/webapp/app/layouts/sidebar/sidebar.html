@@ -1,0 +1,76 @@
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2 sidebar-toggle show"
+              md-component-id="left" >
+    <header class="nav-header">
+      <a ng-href="/" class="docs-logo">
+        <img class="logo-img" src="content/images/logo-jhipster.png"/>
+        <h1 class="docs-logotype md-heading"><span translate="global.title"><%= capitalizedBaseName %></span></h1>
+      </a>
+    </header>
+
+    <md-content flex role="navigation">
+      <ul class="docs-menu">
+            <li ui-sref-active="active"  class="parent-list-item">
+                <menu-link section="section" ui-sref="home">
+                    <a class="md-button md-ink-ripple" ui-sref="home" aria-label="Home">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span>Home</span>
+                    </a>
+                </menu-link>
+            </li>
+            <li ui-sref-active="active"  class="parent-list-item" ng-repeat="section in vm.sections track by $index">
+                <md-button ng-click="vm.isOpen($index)"
+                aria-controls="docs-menu-entities">
+                    <div flex layout="row">
+                        <span><md-icon class="glyphicon" ng-class="section.icon"></md-icon>
+                            <span translate="{{section.translate}}">{{section.name}}</span></span>
+                        <span flex></span>
+                        <span aria-hidden="true" class="md-toggle-icon" ng-class="{'toggled':section.showPage}">
+                                 <span class="glyphicon glyphicon-chevron-down"></span>
+                        </span>
+                    </div>
+                </md-button>
+                <ul id="docs-menu-entities" class="menu-toggle-list">
+                  <li>
+                      <menu-link section="page" ui-sref="{{page.href}}" ng-if="section.showPage" ng-repeat="page in section.pages track by $index" ng-show={{page.show}}>
+                          <a class="md-button md-ink-ripple" ng-class="{'active' : section.showPage}" ui-sref="home" aria-label="Home" target={{page.target}}>
+                              <span class="glyphicon" ng-class="page.icon"></span>
+                              <span translate="{{page.translate}}">{{page.name}}</span>
+                          </a>
+                      </menu-link>
+                  </li>
+                </ul>
+
+            </li>
+
+            <%_ if (enableTranslation){ _%>
+                
+                <li ui-sref-active="active"  class="parent-list-item" ng-controller="JhiLanguageController as languageVm">
+                    <md-button ng-click="vm.tranOpen($index)"
+                    aria-controls="docs-menu-entities">
+                        <div flex layout="row">
+                            <span>
+                                <md-icon class="glyphicon glyphicon-flag">
+                                </md-icon>
+                                <span translate="global.menu.language">Translation</span>
+                            </span>
+                            <span flex></span>
+                            <span aria-hidden="true" class="md-toggle-icon" ng-class="{'toggled':vm.translationShow}">
+                                     <span class="glyphicon glyphicon-chevron-down"></span>
+                            </span>
+                        </div>
+                    </md-button>
+                    <ul id="docs-menu-entities" class="menu-toggle-list" >
+                      <li>
+                          <menu-link section="page"  ng-repeat="language in languageVm.languages" ng-show="vm.translationShow" >
+                              <a class="md-button md-ink-ripple" ng-click="languageVm.changeLanguage(language);">
+                                <span>{{language | findLanguageFromKey}}</span>
+                              </a>
+                          </menu-link>
+                      </li>
+                    </ul>
+
+                </li>
+            <%_ } _%>
+        </ul>
+    </md-content>
+ </md-sidenav>

@@ -94,17 +94,17 @@ Generator.prototype.addElementToAdminMenu = function (routerName, glyphiconName,
  */
 Generator.prototype.addEntityToMenu = function (routerName, enableTranslation) {
     try {
-        var fullPath = CLIENT_MAIN_SRC_DIR + 'app/layouts/navbar/navbar.html';
+        var fullPath = CLIENT_MAIN_SRC_DIR + 'app/layouts/sidebar/sidebar.controller.js';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'jhipster-needle-add-entity-to-menu',
             splicable: [
-                '<li ui-sref-active="active" >\n' +
-                '                            <a ui-sref="' + routerName + '" ng-click="vm.collapseNavbar()">\n' +
-                '                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;\n' +
-                '                                <span ' + ( enableTranslation ? 'translate="global.menu.entities.' + _.camelCase(routerName) + '"' : '' ) + '>' + _.startCase(routerName) + '</span>\n' +
-                '                            </a>\n' +
-                '                        </li>'
+                'entities.push ({href: \''+routerName+'\',\n'+
+            '\t\t\t\t\t\tname: \''+ _.startCase(routerName)+'\',\n'+
+            '\t\t\t\t\t\ttarget: \'_self\',\n'+
+            '\t\t\t\t\t\ttranslate: \'global.menu.entities.'+ _.camelCase(routerName)+'\',\n'+
+            '\t\t\t\t\t\tshow: true,\n'+
+            '\t\t\t\t\t\ticon: \'glyphicon-asterisk\'});'
             ]
         }, this);
     } catch (e) {

@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('UserManagementDeleteController', UserManagementDeleteController);
 
-    UserManagementDeleteController.$inject = ['$uibModalInstance', 'entity', 'User'];
+    UserManagementDeleteController.$inject = ['$mdDialog', 'entity', 'User'];
 
-    function UserManagementDeleteController ($uibModalInstance, entity, User) {
+    function UserManagementDeleteController ($mdDialog, entity, User) {
         var vm = this;
 
         vm.user = entity;
@@ -15,13 +15,13 @@
         vm.confirmDelete = confirmDelete;
 
         function clear () {
-            $uibModalInstance.dismiss('cancel');
+            $mdDialog.cancel();
         }
 
         function confirmDelete (login) {
             User.delete({login: login},
                 function () {
-                    $uibModalInstance.close(true);
+                    $mdDialog.hide();
                 });
         }
     }

@@ -1,16 +1,20 @@
-<div>
+<md-content flex layout-padding>
 <%_ var keyPrefix = angularAppName + '.'+ entityTranslationKey + '.'; _%>
-    <h2 translate="<%= keyPrefix %>home.title"><%= entityClassPluralHumanized %></h2>
+    <md-toolbar class="md-primary">
+       <div class="md-toolbar-tools">
+           <h2 class="md-flex" translate="<%= keyPrefix %>home.title"><%= entityClassPluralHumanized %></h2>
+       </div>
+    </md-toolbar>
     <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
+    <div flex>
+        <div layout="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="<%= entityStateName %>.new" >
+                <md-button class="md-primary" aria-label="create" ui-sref="<%= entityStateName %>.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span <% if (searchEngine == 'elasticsearch') { %>class="hidden-xs" <% } %> translate="<%= keyPrefix %>home.createLabel">
                         Create new <%= entityClassHumanized %>
                     </span>
-                </button>
+                </md-button>
             </div>
             <%_ if (searchEngine == 'elasticsearch') { _%>
             <div class="col-xs-8 no-padding-right">
@@ -34,7 +38,7 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive">
+    <div layout="row">
         <table class="jh-table table table-striped">
             <thead>
                 <tr<% if (pagination != 'no') { %> jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.<%=pagination != 'infinite-scroll' ? 'transition' : 'reset'%>()"<% } %>>
@@ -125,25 +129,25 @@
                         <%_ } _%>
                     <%_ } _%>
                     <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
+                        <div flex>
+                            <md-button type="submit"
                                     ui-sref="<%= entityStateName %>-detail({id:<%= entityInstance %>.id})"
-                                    class="btn btn-info btn-sm">
+                                    class="md-button-grp" aria-label="view">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
-                            </button>
-                            <button type="submit"
+                            </md-button>
+                            <md-button type="submit"
                                     ui-sref="<%= entityStateName %>.edit({id:<%=entityInstance %>.id})"
-                                    class="btn btn-primary btn-sm">
+                                    class="md-button-grp md-primary" aria-label="edit">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
+                            </md-button>
+                            <md-button type="submit"
                                     ui-sref="<%= entityStateName %>.delete({id:<%=entityInstance %>.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                    class="md-button-grp md-warn" aria-label="delete">
+                                <span class="glyphicon glyphicon-trash"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                            </button>
+                            </md-button>
                         </div>
                     </td>
                 </tr>
@@ -161,4 +165,4 @@
         <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
     <%_ } _%>
-</div>
+</md-content>

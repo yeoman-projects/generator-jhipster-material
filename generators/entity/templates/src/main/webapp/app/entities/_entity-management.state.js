@@ -92,13 +92,13 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            onEnter: ['$stateParams', '$state', '$mdDialog', function($stateParams, $state, $mdDialog) {
+                $mdDialog.show({
                     templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
                     controller: '<%= entityAngularJSName %>DialogController',
                     controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose:false,
                     resolve: {
                         entity: function () {
                             return {
@@ -116,7 +116,7 @@
                             };
                         }
                     }
-                }).result.then(function() {
+                }).then(function() {
                     $state.go('<%= entityStateName %>', null, { reload: true });
                 }, function() {
                     $state.go('<%= entityStateName %>');
@@ -129,19 +129,19 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            onEnter: ['$stateParams', '$state', '$mdDialog', function($stateParams, $state, $mdDialog) {
+                $mdDialog.show({
                     templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-dialog.html',
                     controller: '<%= entityAngularJSName %>DialogController',
                     controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose:false,
                     resolve: {
                         entity: ['<%= entityClass %>', function(<%= entityClass %>) {
                             return <%= entityClass %>.get({id : $stateParams.id}).$promise;
                         }]
                     }
-                }).result.then(function() {
+                }).then(function() {
                     $state.go('<%= entityStateName %>', null, { reload: true });
                 }, function() {
                     $state.go('^');
@@ -154,21 +154,22 @@
             data: {
                 authorities: ['ROLE_USER']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            onEnter: ['$stateParams', '$state', '$mdDialog', function($stateParams, $state, $mdDialog) {
+                $mdDialog.show({
                     templateUrl: 'app/entities/<%= entityFolderName %>/<%= entityFileName %>-delete-dialog.html',
                     controller: '<%= entityAngularJSName %>DeleteController',
                     controllerAs: 'vm',
-                    size: 'md',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose:false,
                     resolve: {
                         entity: ['<%= entityClass %>', function(<%= entityClass %>) {
                             return <%= entityClass %>.get({id : $stateParams.id}).$promise;
                         }]
                     }
-                }).result.then(function() {
-                    $state.go('<%= entityStateName %>', null, { reload: true });
-                }, function() {
-                    $state.go('^');
+                   }).then(function() {
+                       $state.go('<%= entityStateName %>', null, { reload: true });
+                   }, function() {
+                       $state.go('^');
                 });
             }]
         });

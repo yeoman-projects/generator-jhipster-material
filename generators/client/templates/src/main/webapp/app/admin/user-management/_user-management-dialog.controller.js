@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('UserManagementDialogController',UserManagementDialogController);
 
-    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User'<% if (enableTranslation) { %>, '<%=jhiPrefixCapitalized%>LanguageService'<% } %>];
+    UserManagementDialogController.$inject = ['$stateParams', '$mdDialog', 'entity', 'User'<% if (enableTranslation) { %>, '<%=jhiPrefixCapitalized%>LanguageService'<% } %>];
 
-    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User<% if (enableTranslation) { %>, <%=jhiPrefixCapitalized%>LanguageService<% } %>) {
+    function UserManagementDialogController ($stateParams, $mdDialog, entity, User<% if (enableTranslation) { %>, <%=jhiPrefixCapitalized%>LanguageService<% } %>) {
         var vm = this;
 
         vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
@@ -24,12 +24,12 @@
         <%_ } _%>
 
         function clear () {
-            $uibModalInstance.dismiss('cancel');
+            $mdDialog.cancel();
         }
 
         function onSaveSuccess (result) {
             vm.isSaving = false;
-            $uibModalInstance.close(result);
+            $mdDialog.hide();
         }
 
         function onSaveError () {

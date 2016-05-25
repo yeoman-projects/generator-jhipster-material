@@ -3,12 +3,12 @@
 
     <h3 translate="gateway.routes.title">Current routes</h3>
     <p>
-        <button type="button" class="btn btn-primary" ng-click="vm.refresh()" ng-show="vm.updatingRoutes == false">
+        <md-button type="button" class="md-raised md-primary" ng-click="vm.refresh()" ng-show="vm.updatingRoutes == false">
             <span class="glyphicon glyphicon-refresh glyphicon-"></span>&nbsp;<span translate="gateway.refresh.button">Refresh</span>
-        </button>
-        <button type="button" class="btn btn-danger" ng-show="vm.updatingRoutes">
+        </md-button>
+        <md-button type="button" class="md-raised md-warn" ng-show="vm.updatingRoutes">
             <span class="glyphicon glyphicon-refresh"></span>&nbsp;<span translate="gateway.refresh.button">Refresh</span>
-        </button>
+        </md-button>
     </p>
     <table class="table table-striped table-responsive">
         <thead>

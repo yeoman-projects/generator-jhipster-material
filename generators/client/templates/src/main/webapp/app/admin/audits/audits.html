@@ -1,16 +1,12 @@
 <div>
     <h2 translate="audits.title">Audits</h2>
 
-    <div class="row">
-        <div class="col-md-5">
-            <h4 translate="audits.filter.title">Filter by date</h4>
-            <p class="input-group">
-                <span class="input-group-addon" translate="audits.filter.from">from</span>
-                <input type="date" class="input-sm form-control" name="start" ng-model="vm.fromDate" ng-change="vm.onChangeDate()" required/>
-                <span class="input-group-addon" translate="audits.filter.to">to</span>
-                <input type="date" class="input-sm form-control" name="end" ng-model="vm.toDate" ng-change="vm.onChangeDate()" required/>
-            </p>
-        </div>
+    <div layout="row">
+        <h4 translate="audits.filter.title">Filter by date</h4>
+        <md-content>
+            <md-datepicker name="start" ng-model="vm.fromDate" ng-change="vm.onChangeDate()" required md-placeholder="Enter From date"></md-datepicker>
+            <md-datepicker md-placeholder="Enter To date" name="end" ng-model="vm.toDate" ng-change="vm.onChangeDate()" required></md-datepicker>
+        </md-content>
     </div>
 
 

@@ -5,23 +5,23 @@
         .module('<%=angularAppName%>')
         .controller('<%= entityAngularJSName %>DeleteController',<%= entityAngularJSName %>DeleteController);
 
-    <%= entityAngularJSName %>DeleteController.$inject = ['$uibModalInstance', 'entity', '<%= entityClass %>'];
+    <%= entityAngularJSName %>DeleteController.$inject = ['$mdDialog', 'entity', '<%= entityClass %>'];
 
-    function <%= entityAngularJSName %>DeleteController($uibModalInstance, entity, <%= entityClass %>) {
+    function <%= entityAngularJSName %>DeleteController($mdDialog, entity, <%= entityClass %>) {
         var vm = this;
 
         vm.<%= entityInstance %> = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-        
+
         function clear () {
-            $uibModalInstance.dismiss('cancel');
+            $mdDialog.cancel();
         }
 
         function confirmDelete (id) {
             <%= entityClass %>.delete({id: id},
                 function () {
-                    $uibModalInstance.close(true);
+                    $mdDialog.hide();
                 });
         }
     }

@@ -5,9 +5,9 @@
         .module('<%=angularAppName%>')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService', '$mdSidenav'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService, $mdSidenav) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
@@ -34,8 +34,13 @@
             Auth.logout();
             $state.go('home');
         }
-
+        var sidebarComponentId = 'left';
         function toggleNavbar() {
+            if ( vm.isAuthenticated() ) {
+                $mdSidenav(sidebarComponentId).toggle();
+            } else {
+                $mdSidenav(sidebarComponentId).close();
+            }
             vm.isNavbarCollapsed = !vm.isNavbarCollapsed;
         }
 

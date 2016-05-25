@@ -498,6 +498,8 @@ module.exports = JhipsterClientGenerator.extend({
             }
             this.copyHtml(ANGULAR_DIR + 'layouts/navbar/navbar.html', ANGULAR_DIR + 'layouts/navbar/navbar.html');
             this.template(ANGULAR_DIR + 'layouts/navbar/_navbar.controller.js', ANGULAR_DIR + 'layouts/navbar/navbar.controller.js', this, {});
+            this.copyHtml(ANGULAR_DIR + 'layouts/sidebar/sidebar.html', ANGULAR_DIR + 'layouts/sidebar/sidebar.html');
+            this.template(ANGULAR_DIR + 'layouts/sidebar/_sidebar.controller.js', ANGULAR_DIR + 'layouts/sidebar/sidebar.controller.js', this, {});
             this.copyHtml(ANGULAR_DIR + 'layouts/error/error.html', ANGULAR_DIR + 'layouts/error/error.html');
             this.copyHtml(ANGULAR_DIR + 'layouts/error/accessdenied.html', ANGULAR_DIR + 'layouts/error/accessdenied.html');
             this.copyJs(ANGULAR_DIR + 'layouts/error/_error.state.js', ANGULAR_DIR + 'layouts/error/error.state.js', this, {});

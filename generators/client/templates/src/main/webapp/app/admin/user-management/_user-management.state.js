@@ -57,13 +57,13 @@
             data: {
                 authorities: ['ROLE_ADMIN']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            onEnter: ['$stateParams', '$state', '$mdDialog', function($stateParams, $state, $mdDialog) {
+                $mdDialog.show({
                     templateUrl: 'app/admin/user-management/user-management-dialog.html',
                     controller: 'UserManagementDialogController',
                     controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true,
                     resolve: {
                         entity: function () {
                             return {
@@ -74,7 +74,7 @@
                             };
                         }
                     }
-                }).result.then(function() {
+                }).then(function() {
                     $state.go('user-management', null, { reload: true });
                 }, function() {
                     $state.go('user-management');
@@ -87,19 +87,19 @@
             data: {
                 authorities: ['ROLE_ADMIN']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            onEnter: ['$stateParams', '$state', '$mdDialog', function($stateParams, $state, $mdDialog) {
+                $mdDialog.show({
                     templateUrl: 'app/admin/user-management/user-management-dialog.html',
                     controller: 'UserManagementDialogController',
                     controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true,
                     resolve: {
                         entity: ['User', function(User) {
                             return User.get({login : $stateParams.login});
                         }]
                     }
-                }).result.then(function() {
+                }).then(function() {
                     $state.go('user-management', null, { reload: true });
                 }, function() {
                     $state.go('^');
@@ -112,18 +112,19 @@
             data: {
                 authorities: ['ROLE_ADMIN']
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
+            onEnter: ['$stateParams', '$state', '$mdDialog', function($stateParams, $state, $mdDialog) {
+                $mdDialog.show({
                     templateUrl: 'app/admin/user-management/user-management-delete-dialog.html',
                     controller: 'UserManagementDeleteController',
                     controllerAs: 'vm',
-                    size: 'md',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true,
                     resolve: {
                         entity: ['User', function(User) {
                             return User.get({login : $stateParams.login});
                         }]
                     }
-                }).result.then(function() {
+                }).then(function() {
                     $state.go('user-management', null, { reload: true });
                 }, function() {
                     $state.go('^');
