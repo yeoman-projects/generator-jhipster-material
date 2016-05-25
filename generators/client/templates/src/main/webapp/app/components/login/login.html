@@ -1,0 +1,57 @@
+<md-dialog aria-label="Edit Form"  ng-cloak flex="50">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4 class="modal-title" translate="login.title">Sign in</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="clear" aria-hidden="true">
+                <span class="glyphicon glyphicon-remove"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <jhi-alert-error></jhi-alert-error>
+            <h1 translate="login.title">Sign in</h1>
+            <div class="alert alert-danger" ng-show="vm.authenticationError" translate="login.messages.error.authentication">
+                <strong>Failed to sign in!</strong> Please check your credentials and try again.
+            </div>
+            <div layout="row" flex>
+                <form class="form" role="form" ng-submit="vm.login($event)" flex>
+                    <md-input-container class="md-block">
+                        <label for="username" translate="global.form.username">User Name</label>
+                        <input type="text" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="vm.username" />
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="password" translate="login.form.password">Password</label>
+                        <input type="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
+                               ng-model="vm.password"/>
+                    </md-input-container>
+                    <%_ if (authenticationType == 'session' || authenticationType == 'jwt') { _%>
+                        <md-input-container class="md-block">
+                            <label for="rememberMe">
+                                <md-checkbox id="rememberMe" ng-model="vm.rememberMe" checked aria-label="rememberme"/>
+                                    <span translate="login.form.rememberme">Remember me</span>
+                                </md-checkbox>
+                            </label>
+                        </md-input-container>
+                    <%_ } _%>
+                    <md-button type="submit" class="md-raised" translate="login.form.button">Sign in</md-button>
+                </form>
+            </div>
+            <p></p><%_ if (enableSocialSignIn) { _%>
+            <div layout="row">
+                <br/>
+                <jh-social ng-provider="google"></jh-social>
+                <jh-social ng-provider="facebook"></jh-social>
+                <jh-social ng-provider="twitter"></jh-social>
+                <!-- jhipster-needle-add-social-button -->
+            </div><%_ } _%>
+            <div layout="row" class="alert alert-warning">
+                <a class="alert-link" href="" ng-click="vm.requestResetPassword()" translate="login.password.forgot">Did you forget your password?</a>
+            </div>
+            <div layout="row" class="alert alert-warning" translate="global.messages.info.register" translate-compile>
+                You don't have an account yet? <a class="alert-link" href="" ng-click="vm.register()">Register a new account</a>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

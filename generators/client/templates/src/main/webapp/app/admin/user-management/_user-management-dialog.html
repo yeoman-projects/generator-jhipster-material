@@ -1,0 +1,125 @@
+<md-dialog aria-label="Edit Form"  ng-cloak flex="80">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4 class="modal-title" id="myUserLabel" translate="userManagement.home.createOrEditLabel">
+                Create or edit a User</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.clear()" aria-label="clear">
+                <span class="glyphicon glyphicon-remove"></span>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <jhi-alert-error></jhi-alert-error>
+            <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation flex>
+                <md-input-container class="md-block">
+                    <label for="id" translate="global.field.id">ID</label>
+                    <input type="text" name="id"
+                           ng-model="vm.user.id" readonly>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label  translate="userManagement.login">Login</label>
+                    <input type="text" name="login"
+                           ng-model="vm.user.login" ng-required="vm.user.id == null" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/">
+
+                    <div ng-show="editForm.login.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.login.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.login.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label  translate="userManagement.firstName">First Name</label>
+                    <input type="text" name="firstName"
+                           ng-model="vm.user.firstName" ng-maxlength="50">
+
+                    <div ng-show="editForm.firstName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.firstName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label translate="userManagement.lastName">Last Name</label>
+                    <input type="text" name="lastName"
+                           ng-model="vm.user.lastName" ng-maxlength="50">
+
+                    <div ng-show="editForm.lastName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.lastName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label  translate="userManagement.email">Email</label>
+                    <input type="email" name="email"
+                           ng-model="vm.user.email" required ng-maxlength="100">
+
+                    <div ng-show="editForm.email.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.email.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.email.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+        				<p class="help-block"
+                           ng-show="editForm.email.$error.email" translate="global.messages.validate.email.invalid">
+                            Your e-mail is invalid.
+                         </p>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label for="activated">
+                        <md-checkbox ng-disabled="vm.user.id === null" id="activated" ng-model="vm.user.activated">
+                            <span translate="userManagement.activated">Activated</span>
+                        </md-checkbox>
+                    </label>
+                </md-input-container><% if (enableTranslation) { %>
+                <br/>
+                <md-input-container class="md-block">
+                    <label translate="userManagement.langKey">Lang Key</label>
+                    <md-select name="langKey" ng-model="vm.user.langKey">
+                        <md-option ng-repeat="language in vm.languages track by language" value="{{language}}">
+                            {{language}}
+                        </md-option>
+                    </md-select>
+                </md-input-container><% } %>
+
+                <md-input-container class="md-block">
+                    <label translate="userManagement.profiles">Profiles</label>
+                    <md-select multiple name="authority" ng-model="vm.user.authorities">
+                        <md-option ng-repeat="authority in vm.authorities" value="{{authority}}">
+                            {{authority}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </form>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+            translate="entity.action.cancel">Cancel</span>
+        </md-button>
+        <md-button type="submit" ng-disabled="editForm.$invalid || isSaving" class="md-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </md-button>
+    </md-dialog-actions>
+</form>
+</md-dialog>

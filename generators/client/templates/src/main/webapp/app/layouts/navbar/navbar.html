@@ -1,0 +1,26 @@
+<div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1">
+    <md-button class="md-icon-button" ng-click="vm.toggleNavbar()" aria-label="Toggle Menu">
+      <md-icon><span class="glyphicon glyphicon-th"/></md-icon>
+    </md-button>
+    <div layout="row" flex class="fill-height">
+      <h2 class="md-toolbar-item md-headline">
+        <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
+            <img class="logo-img" src="content/images/logo-jhipster.png"/>
+            <span translate="global.title"><%= capitalizedBaseName %></span> <span class="navbar-version">v{{VERSION}}</span>
+        </a>
+      </h2>
+      <span flex></span>
+      <md-button class="md-raised md-warn" aria-label="Sign out" ng-click="vm.logout()" ng-if="vm.isAuthenticated()">
+          <span class="glyphicon glyphicon-log-out"></span>&nbsp;
+          <span translate="global.menu.account.logout">Sign out</span>
+      </md-button>
+      <md-button class="md-raised" aria-label="Sign in" ng-click="vm.login()" ng-if="!vm.isAuthenticated()">
+          <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+          <span translate="global.menu.account.login">Sign in</span>
+      </md-button>
+      <md-button class="md-raised" aria-label="Register" ui-sref="register" ng-if="!vm.isAuthenticated()">
+          <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;
+          <span translate="global.menu.account.register">Register</span>
+      </md-button>
+  </div>
+</div>
