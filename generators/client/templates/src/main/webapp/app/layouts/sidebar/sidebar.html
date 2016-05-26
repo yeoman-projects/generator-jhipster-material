@@ -10,7 +10,7 @@
     <md-content flex role="navigation">
       <ul class="docs-menu">
             <li ui-sref-active="active"  class="parent-list-item">
-                <menu-link section="section" ui-sref="home">
+                <menu-link section="section">
                     <a class="md-button md-ink-ripple" ui-sref="home" aria-label="Home">
                         <span class="glyphicon glyphicon-home"></span>
                         <span>Home</span>
@@ -31,8 +31,8 @@
                 </md-button>
                 <ul id="docs-menu-entities" class="menu-toggle-list">
                   <li>
-                      <menu-link section="page" ui-sref="{{page.href}}" ng-if="section.showPage" ng-repeat="page in section.pages track by $index" ng-show={{page.show}}>
-                          <a class="md-button md-ink-ripple" ng-class="{'active' : section.showPage}" ui-sref="home" aria-label="Home" target={{page.target}}>
+                      <menu-link section="page"  ng-if="section.showPage" ng-repeat="page in section.pages track by $index" ng-show={{page.show}}>
+                          <a class="md-button md-ink-ripple" ng-class="{'active' : section.showPage}" ui-sref="{{page.href}}" aria-label={{page.name}} target={{page.target}}>
                               <span class="glyphicon" ng-class="page.icon"></span>
                               <span translate="{{page.translate}}">{{page.name}}</span>
                           </a>
@@ -43,7 +43,7 @@
             </li>
 
             <%_ if (enableTranslation){ _%>
-                
+
                 <li ui-sref-active="active"  class="parent-list-item" ng-controller="JhiLanguageController as languageVm">
                     <md-button ng-click="vm.tranOpen($index)"
                     aria-controls="docs-menu-entities">
