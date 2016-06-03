@@ -1,66 +1,67 @@
 {
-  "name": "generator-jhipster",
-  "version": "3.3.0",
-  "description": "Spring Boot + AngularJS in one handy generator",
+  "name": "generator-jhipster-material",
+  "version": "0.0.0",
+  "description": "A Jhipster based generator to create Angular material + spring boot application",
+  "homepage": "https://github.com/hipster-labs/generator-jhipster-material",
+  "author": {
+    "name": "Deepu KS",
+    "email": "d4udts@gmail.com",
+    "url": "http://deepu105.github.io"
+  },
   "files": [
-    "generators"
+    "generators/app",
+    "generators/entity"
   ],
+  "main": "generators/app/index.js",
   "keywords": [
     "yeoman-generator",
+    "jhipster-module" ,
+    "Jhipster-material",
+    "JHipster",
     "Java",
     "Spring",
     "Spring Security",
     "JPA",
     "Hibernate",
-    "AngularJS",
-    "Twitter Bootstrap"
+    "Angular Material",
+    "Material UI",
+    "Material",
+    "Paper"
   ],
-  "homepage": "http://jhipster.github.io/",
-  "bugs": "https://github.com/jhipster/generator-jhipster/issues",
-  "author": {
-    "name": "Julien Dubois",
-    "email": "",
-    "url": "https://github.com/jdubois"
-  },
-  "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jhipster/generator-jhipster.git"
-  },
-  "scripts": {
-    "pretest": "eslint .",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "test": "mocha --timeout 20000 --reporter spec"
-  },
   "dependencies": {
-    "chalk": "1.1.3",
-    "cheerio": "0.20.0",
-    "ejs": "2.4.1",
-    "glob": "7.0.3",
-    "html-wiring": "1.2.0",
-    "insight": "0.8.1",
-    "lodash": "4.11.1",
+    "yeoman-generator": "0.22.2",
+    "chalk": "1.1.1",
+    "generator-jhipster": "latest",
+    "lodash": "3.10.1",
     "mkdirp": "0.5.1",
-    "shelljs": "0.7.0",
-    "pluralize": "1.2.1",
-    "wordwrap": "1.0.0",
-    "yeoman-generator": "0.22.6",
-    "js-yaml": "3.6.0",
-    "yo": "1.7.0",
-    "semver": "5.1.0",
-    "jhipster-uml": "1.6.1"
+    "shelljs": "0.5.3",
+    "underscore.string": "3.2.2"
   },
   "devDependencies": {
-    "eslint": "2.8.0",
-    "fs-extra": "0.30.0",
-    "mocha": "2.4.5",
-    "yeoman-assert": "2.2.1",
-    "yeoman-test": "1.1.0"
+    "gulp": "^3.6.0",
+    "gulp-bump": "^0.1.11",
+    "gulp-eslint": "^1.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-git": "^0.5.6",
+    "gulp-istanbul": "^0.9.0",
+    "gulp-mocha": "^2.0.0",
+    "gulp-nsp": "^2.1.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sequence": "^0.3.1",
+    "gulp-shell": "^0.2.11",
+    "yeoman-assert": "^2.0.0"
   },
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/hipster-labs/generator-jhipster-material.git"
+    },
   "engines": {
-    "node": ">=4.0.0",
-    "npm": ">=2.14.2"
+    "node": ">=0.12.0",
+    "npm": ">=1.4.0"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hipster-labs/generator-jhipster-material/issues"
+  }
 }
