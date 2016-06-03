@@ -3,28 +3,22 @@ var util = require('util'),
     generators = require('yeoman-generator'),
     chalk = require('chalk'),
     _ = require('lodash'),
-    scriptBase = require('../generator-base'),
     prompts = require('./prompts'),
     mkdirp = require('mkdirp'),
     packagejs = require('../../package.json');
 
 var JhipsterClientGenerator = generators.Base.extend({});
 
-util.inherits(JhipsterClientGenerator, scriptBase);
-
 /* Constants use throughout */
-const constants = require('../generator-constants'),
-    QUESTIONS = constants.CLIENT_QUESTIONS,
-    DIST_DIR = constants.CLIENT_DIST_DIR,
-    MAIN_SRC_DIR = constants.CLIENT_MAIN_SRC_DIR,
-    TEST_SRC_DIR = constants.CLIENT_TEST_SRC_DIR,
-    ANGULAR_DIR = constants.ANGULAR_DIR;
+const constants, QUESTIONS, DIST_DIR, MAIN_SRC_DIR, TEST_SRC_DIR, ANGULAR_DIR;
 
 module.exports = JhipsterClientGenerator.extend({
     constructor: function () {
         generators.Base.apply(this, arguments);
 
         this.configOptions = this.options.configOptions || {};
+        this.jhipsterVar = this.options.jhipsterVar;
+        this.jhipsterFunc = this.options.jhipsterFunc;
 
         // This adds support for a `--protractor` flag
         this.option('protractor', {
@@ -114,21 +108,42 @@ module.exports = JhipsterClientGenerator.extend({
         this.totalQuestions = this.configOptions.totalQuestions ? this.configOptions.totalQuestions : QUESTIONS;
         this.baseName = this.configOptions.baseName;
         this.logo = this.configOptions.logo;
+
+        constants = jhipsterVar.CONSTANTS;
+        QUESTIONS = constants.CLIENT_QUESTIONS;
+        DIST_DIR = constants.CLIENT_DIST_DIR;
+        MAIN_SRC_DIR = constants.CLIENT_MAIN_SRC_DIR;
+        TEST_SRC_DIR = constants.CLIENT_TEST_SRC_DIR;
+        ANGULAR_DIR = constants.ANGULAR_DIR;
     },
 
     initializing: {
         displayLogo: function () {
             if (this.logo) {
-                this.printJHipsterLogo();
+                this.log(chalk.white('\nWelcome to ' + chalk.bold('JHipster Material client') + '! ' + chalk.yellow('v' + packagejs.version + '\n')));
             }
         },
 
-        setupClientVars: function () {
+        composeClient: function () {
+            if (this.skipClient) return;
+
+            this.composeWith('Jhipster:client', {
+                options: {
+                    'skip-install': true,
+                    configOptions: this.configOptions
+                }
+            }, {
+                local: require.resolve('generator-jhipster')
+            });
+
+        },
+
+        /*setupClientVars: function () {
             // Make constants available in templates
             this.MAIN_SRC_DIR = MAIN_SRC_DIR;
             this.TEST_SRC_DIR = TEST_SRC_DIR;
 
-            this.serverPort = this.config.get('serverPort') || this.configOptions.serverPort || 8080;
+            this.serverPort = jhipsterVar.serverPort || this.configOptions.serverPort || 8080;
             this.applicationType = this.config.get('applicationType') || this.configOptions.applicationType;
             if (!this.applicationType) {
                 this.applicationType = 'monolith';
@@ -178,18 +193,10 @@ module.exports = JhipsterClientGenerator.extend({
     },
 
     configuring: {
-        insight: function () {
-            var insight = this.insight();
-            insight.trackWithEvent('generator', 'client');
-            insight.track('app/useSass', this.useSass);
-            insight.track('app/enableTranslation', this.enableTranslation);
-            insight.track('app/nativeLanguage', this.nativeLanguage);
-            insight.track('app/languages', this.languages);
-        },
 
         configureGlobal: function () {
             // Application name modified, using each technology's conventions
-            this.angularAppName = this.getAngularAppName();
+            this.angularAppName = jhipsterFunc.getAngularAppName();
             this.camelizedBaseName = _.camelCase(this.baseName);
             this.capitalizedBaseName = _.upperFirst(this.baseName);
             this.dasherizedBaseName = _.kebabCase(this.baseName);
@@ -269,25 +276,25 @@ module.exports = JhipsterClientGenerator.extend({
         composeLanguages: function () {
             if (this.configOptions.skipI18nQuestion) return;
 
-            this.composeLanguagesSub(this, this.configOptions, 'client');
+            jhipsterFunc.composeLanguagesSub(this, this.configOptions, 'client');
         }
-    },
+    },*/
 
     writing: {
 
         writeCommonFiles: function () {
 
-            this.template('_package.json', 'package.json', this, {});
+            //this.template('_package.json', 'package.json', this, {});
             this.template('_bower.json', 'bower.json', this, {});
-            this.template('bowerrc', '.bowerrc', this, {});
-            this.template('_eslintrc.json', '.eslintrc.json', this, {});
-            this.template('_eslintignore', '.eslintignore', this, {});
-            this.template('gulpfile.js', 'gulpfile.js', this, {});
-            this.fs.copy(this.templatePath('gulp/handleErrors.js'), this.destinationPath('gulp/handleErrors.js')); // to avoid interpolate errors
-            this.template('gulp/utils.js', 'gulp/utils.js', this, {});
-            this.template('gulp/serve.js', 'gulp/serve.js', this, {});
-            this.template('gulp/config.js', 'gulp/config.js', this, {});
-            this.template('gulp/build.js', 'gulp/build.js', this, {});
+            //this.template('bowerrc', '.bowerrc', this, {});
+            //this.template('_eslintrc.json', '.eslintrc.json', this, {});
+            //this.template('_eslintignore', '.eslintignore', this, {});
+            //this.template('gulpfile.js', 'gulpfile.js', this, {});
+            //this.fs.copy(this.templatePath('gulp/handleErrors.js'), this.destinationPath('gulp/handleErrors.js')); // to avoid interpolate errors
+            //this.template('gulp/utils.js', 'gulp/utils.js', this, {});
+            //this.template('gulp/serve.js', 'gulp/serve.js', this, {});
+            //this.template('gulp/config.js', 'gulp/config.js', this, {});
+            //this.template('gulp/build.js', 'gulp/build.js', this, {});
         },
 
         writeCssFiles: function () {
@@ -299,23 +306,23 @@ module.exports = JhipsterClientGenerator.extend({
             // this css file will be overwritten by the sass generated css if sass is enabled
             // but this will avoid errors when running app without running sass task first
             this.template(MAIN_SRC_DIR + 'content/css/main.css', MAIN_SRC_DIR + 'content/css/main.css');
-            this.copy(MAIN_SRC_DIR + 'content/css/documentation.css', MAIN_SRC_DIR + 'content/css/documentation.css');
+            //this.copy(MAIN_SRC_DIR + 'content/css/documentation.css', MAIN_SRC_DIR + 'content/css/documentation.css');
         },
 
         writeCommonWebFiles: function () {
             // Create Webapp
-            mkdirp(MAIN_SRC_DIR);
+            //mkdirp(MAIN_SRC_DIR);
 
             // HTML5 BoilerPlate
-            this.copy(MAIN_SRC_DIR + 'favicon.ico', MAIN_SRC_DIR + 'favicon.ico');
-            this.copy(MAIN_SRC_DIR + 'robots.txt', MAIN_SRC_DIR + 'robots.txt');
+            //this.copy(MAIN_SRC_DIR + 'favicon.ico', MAIN_SRC_DIR + 'favicon.ico');
+            //this.copy(MAIN_SRC_DIR + 'robots.txt', MAIN_SRC_DIR + 'robots.txt');
             this.copy(MAIN_SRC_DIR + '404.html', MAIN_SRC_DIR + '404.html');
         },
 
         writeSwaggerFiles: function () {
             // Swagger-ui for Jhipster
-            this.template(MAIN_SRC_DIR + 'swagger-ui/_index.html', MAIN_SRC_DIR + 'swagger-ui/index.html', this, {});
-            this.copy(MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif', MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif');
+            //this.template(MAIN_SRC_DIR + 'swagger-ui/_index.html', MAIN_SRC_DIR + 'swagger-ui/index.html', this, {});
+            //this.copy(MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif', MAIN_SRC_DIR + 'swagger-ui/images/throbber.gif');
         },
 
         writeAngularAppFiles: function () {
@@ -324,7 +331,7 @@ module.exports = JhipsterClientGenerator.extend({
             // Angular JS module
             this.template(ANGULAR_DIR + '_app.module.js', ANGULAR_DIR + 'app.module.js', this, {});
             this.template(ANGULAR_DIR + '_app.state.js', ANGULAR_DIR + 'app.state.js', this, {});
-            this.template(ANGULAR_DIR + '_app.constants.js', ANGULAR_DIR + 'app.constants.js', this, {});
+            //this.template(ANGULAR_DIR + '_app.constants.js', ANGULAR_DIR + 'app.constants.js', this, {});
             this.template(ANGULAR_DIR + 'blocks/handlers/_state.handler.js', ANGULAR_DIR + 'blocks/handlers/state.handler.js', this, {});
             if (this.enableTranslation) {
                 this.template(ANGULAR_DIR + 'blocks/handlers/_translation.handler.js', ANGULAR_DIR + 'blocks/handlers/translation.handler.js', this, {});

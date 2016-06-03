@@ -3,34 +3,11 @@
 var chalk = require('chalk');
 
 module.exports = {
-    askForInsightOptIn,
     askForApplicationType,
     askForModuleName,
     askFori18n,
     askForTestOpts
 };
-
-function askForInsightOptIn() {
-    if (this.existingProject) return;
-
-    var done = this.async();
-    var insight = this.insight();
-
-    this.prompt({
-        when: function () {
-            return insight.optOut === undefined;
-        },
-        type: 'confirm',
-        name: 'insight',
-        message: 'May ' + chalk.cyan('JHipster') + ' anonymously report usage statistics to improve the tool over time?',
-        default: true
-    }, function (prompt) {
-        if (prompt.insight !== undefined) {
-            insight.optOut = !prompt.insight;
-        }
-        done();
-    }.bind(this));
-}
 
 function askForApplicationType() {
     if (this.existingProject) return;
@@ -50,16 +27,8 @@ function askForApplicationType() {
                 name: 'Monolithic application (recommended for simple projects)'
             },
             {
-                value: 'microservice',
-                name: 'Microservice application'
-            },
-            {
                 value: 'gateway',
                 name: 'Microservice gateway'
-            },
-            {
-                value: 'uaa',
-                name: '[BETA] JHipster UAA server (for microservice OAuth2 authentication)'
             }
         ],
         default: 'monolith'
@@ -72,7 +41,7 @@ function askForApplicationType() {
 function askForModuleName() {
     if (this.existingProject) return;
 
-    this.askModuleName(this);
+    this.jhipsterFunc.askModuleName(this);
     this.configOptions.lastQuestion = this.currentQuestion;
     this.configOptions.totalQuestions = this.totalQuestions;
 }
@@ -81,13 +50,13 @@ function askFori18n() {
     this.currentQuestion = this.configOptions.lastQuestion;
     this.totalQuestions = this.configOptions.totalQuestions;
     if (this.skipI18n || this.existingProject) return;
-    this.aski18n(this);
+    this.jhipsterFunc.aski18n(this);
 }
 
 function askForTestOpts() {
     if (this.existingProject) return;
 
-    var getNumberedQuestion = this.getNumberedQuestion.bind(this);
+    var getNumberedQuestion = this.jhipsterFunc.getNumberedQuestion.bind(this);
     var choices = [];
     if (!this.skipServer) {
         // all server side test frameworks should be addded here

@@ -10,14 +10,14 @@ function askForModuleName() {
 
     if (this.baseName) return;
 
-    this.askModuleName(this);
+    this.jhipsterFunc.askModuleName(this);
 }
 
 function askForClientSideOpts() {
     if (this.existingProject) return;
 
     var done = this.async();
-    var getNumberedQuestion = this.getNumberedQuestion.bind(this);
+    var getNumberedQuestion = this.jhipsterFunc.getNumberedQuestion.bind(this);
     var prompts = [
         {
             type: 'confirm',
@@ -37,5 +37,5 @@ function askForClientSideOpts() {
 function askFori18n() {
     if (this.existingProject || this.configOptions.skipI18nQuestion) return;
 
-    this.aski18n(this);
+    this.jhipsterFunc.aski18n(this);
 }

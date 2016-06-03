@@ -1,7 +1,7 @@
 Description:
-    Creates a new JHipster client side application based on the selected options
+    Creates a new Jhipster-material client side application based on the selected options
 
 Example:
-    yo jhipster:client
+    yo Jhipster-material:client
 
     This will create an AngularJS client app

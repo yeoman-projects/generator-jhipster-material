@@ -12,7 +12,7 @@ var UpgradeGenerator = generators.Base.extend({});
 util.inherits(UpgradeGenerator, scriptBase);
 
 /* Constants used throughout */
-const GENERATOR_JHIPSTER = 'generator-jhipster',
+const GENERATOR_JHIPSTER = 'generator-jhipster-material',
     UPGRADE_BRANCH = 'jhipster_upgrade';
 
 module.exports = UpgradeGenerator.extend({

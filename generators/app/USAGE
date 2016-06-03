@@ -1,7 +1,7 @@
 Description:
-    Creates a new JHipster application based on the selected options
+    Creates a new JHipster Material application based on the selected options
 
 Example:
-    yo jhipster
+    yo jhipster-material
 
-    This will compose jhipster:client, jhipster:server and jhipster:languages to scaffold a full application
+    This will compose jhipster-material:client, jhipster:server and jhipster:languages to scaffold a full application
