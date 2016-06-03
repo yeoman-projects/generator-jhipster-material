@@ -187,14 +187,14 @@ module.exports = JhipsterGenerator.extend({
         regenerateEntities: function () {
             if (this.withEntities) {
                 this.getExistingEntities().forEach(function (entity) {
-                    this.composeWith('Jhipster-material:entity', {
+                    this.composeWith('Jhipster:entity', {
                         options: {
                             regenerate: true,
                             'skip-install': true
                         },
                         args: [entity.name]
                     }, {
-                        local: require.resolve('../entity')
+                        local: require.resolve('generator-jhipster')
                     });
                 }, this);
             }
@@ -202,6 +202,14 @@ module.exports = JhipsterGenerator.extend({
     },
 
     end: {
+        registering: function () {
+            try {
+                jhipsterFunc.registerModule("generator-jhipster-material", "entity", "post", "entity", "Add material design");
+            } catch (err) {
+                this.log(chalk.red.bold('WARN!') + ' Could not register as a jhipster post entity creation hook...\n');
+            }
+        },
+
         afterRunHook: function () {
             try {
                 var modules = this.getModuleHooks();
