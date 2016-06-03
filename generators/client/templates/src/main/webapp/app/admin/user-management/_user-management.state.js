@@ -63,7 +63,7 @@
                     controller: 'UserManagementDialogController',
                     controllerAs: 'vm',
                     parent: angular.element(document.body),
-                    clickOutsideToClose: true,
+                    clickOutsideToClose: false,
                     resolve: {
                         entity: function () {
                             return {
@@ -93,7 +93,7 @@
                     controller: 'UserManagementDialogController',
                     controllerAs: 'vm',
                     parent: angular.element(document.body),
-                    clickOutsideToClose: true,
+                    clickOutsideToClose: false,
                     resolve: {
                         entity: ['User', function(User) {
                             return User.get({login : $stateParams.login});
