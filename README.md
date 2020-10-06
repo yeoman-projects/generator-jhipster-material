@@ -22,6 +22,40 @@ As this is a generator which runs on top of [JHipster](http://jhipster.github.io
 
 This generator requires Jhipster version 3.0 or greater in order to work
 
+## Using Docker
+
+Download the Dockerfile:
+
+```bash
+mkdir docker
+cd docker
+wget https://github.com/jhipster-projects/generator-jhipster-material/raw/master/docker/Dockerfile
+```
+
+Build the Docker images:
+
+```bash
+docker build -t jhipster-generator-material:latest .
+```
+
+Make a folder where you want to generate the Service:
+
+```bash
+mkdir service
+cd service
+```
+
+Run the generator from image to generate service:
+
+```bash
+docker run -it --rm -v $PWD:/home/jhipster/app jhipster-generator-material
+```
+
+Run and attach interactive shell to the generator docker container to work from inside the running container:
+
+```bash
+docker run -it --rm -v $PWD:/home/jhipster/app jhipster-generator-material /bin/bash
+```
 
 ## Contributing
 
